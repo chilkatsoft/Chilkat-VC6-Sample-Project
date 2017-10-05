@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.69
 
 #ifndef _CkPublicKey_H
 #define _CkPublicKey_H
@@ -48,6 +48,9 @@ class CK_VISIBLE_PUBLIC CkPublicKey  : public CkMultiByteBase
 	// ----------------------
 	// Properties
 	// ----------------------
+	// Gets the size (in bits) of the public key. For example: 1024, 2048, etc.
+	int get_KeySize(void);
+
 	// The type of public key. Can be "empty", "rsa", "dsa", or "ecc".
 	void get_KeyType(CkString &str);
 	// The type of public key. Can be "empty", "rsa", "dsa", or "ecc".
@@ -80,6 +83,63 @@ class CK_VISIBLE_PUBLIC CkPublicKey  : public CkMultiByteBase
 	// preferPkcs1 determine which format is returned. The encoding specifies the encoding, which
 	// is typically "base64".
 	const char *encoded(bool preferPkcs1, const char *encoding);
+
+
+	// Gets the public key in JWK (JSON Web Key) format.
+	// 
+	// RSA public keys have this JWK format:
+	//          {"kty":"RSA",
+	//           "n": "0vx7agoebGcQSuuPiLJXZptN9 ... U8awapJzKnqDKgw",
+	//           "e":"AQAB"}
+	// 
+	// ECC public keys have this JWK format:
+	//          {"kty":"EC",
+	//           "crv":"P-256",
+	//           "x":"MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+	//           "y":"4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"}
+	// 
+	bool GetJwk(CkString &outStr);
+
+	// Gets the public key in JWK (JSON Web Key) format.
+	// 
+	// RSA public keys have this JWK format:
+	//          {"kty":"RSA",
+	//           "n": "0vx7agoebGcQSuuPiLJXZptN9 ... U8awapJzKnqDKgw",
+	//           "e":"AQAB"}
+	// 
+	// ECC public keys have this JWK format:
+	//          {"kty":"EC",
+	//           "crv":"P-256",
+	//           "x":"MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+	//           "y":"4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"}
+	// 
+	const char *getJwk(void);
+	// Gets the public key in JWK (JSON Web Key) format.
+	// 
+	// RSA public keys have this JWK format:
+	//          {"kty":"RSA",
+	//           "n": "0vx7agoebGcQSuuPiLJXZptN9 ... U8awapJzKnqDKgw",
+	//           "e":"AQAB"}
+	// 
+	// ECC public keys have this JWK format:
+	//          {"kty":"EC",
+	//           "crv":"P-256",
+	//           "x":"MKBCTNIcKUSDii11ySs3526iDZ8AiTo7Tu6KPAqv7D4",
+	//           "y":"4Etl6SRW2YiLUrN5vfvVHuhp7x8PxltmWWlbbM4IFyM"}
+	// 
+	const char *jwk(void);
+
+
+	// Returns the JWK thumbprint for the public key. This is the thumbprint of the
+	// JSON Web Key (JWK) as per RFC 7638.
+	bool GetJwkThumbprint(const char *hashAlg, CkString &outStr);
+
+	// Returns the JWK thumbprint for the public key. This is the thumbprint of the
+	// JSON Web Key (JWK) as per RFC 7638.
+	const char *getJwkThumbprint(const char *hashAlg);
+	// Returns the JWK thumbprint for the public key. This is the thumbprint of the
+	// JSON Web Key (JWK) as per RFC 7638.
+	const char *jwkThumbprint(const char *hashAlg);
 
 
 	// This method is deprecated. Applications should call GetDer with preference for
@@ -258,12 +318,20 @@ class CK_VISIBLE_PUBLIC CkPublicKey  : public CkMultiByteBase
 	// such as binary DER (PKCS1 or PKCS8), PEM, XML, or encoded binary DER (such as
 	// base64 encoded binary DER). The format of the contents of the file is
 	// auto-recognized.
+	// 
+	// Starting in version 9.5.0.66, this method also supports loading the JWK (JSON
+	// Web Key) format.
+	// 
 	bool LoadFromFile(const char *path);
 
 
 	// Loads a public key from any string format, such as PEM, XML, or encoded binary
 	// DER (such as base64 encoded binary DER). The format of the keyString is
 	// auto-recognized.
+	// 
+	// Starting in version 9.5.0.66, this method also supports loading the JWK (JSON
+	// Web Key) format.
+	// 
 	bool LoadFromString(const char *keyString);
 
 

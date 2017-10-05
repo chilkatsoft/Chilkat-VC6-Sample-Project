@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.65
+// This is a generated source file for Chilkat version 9.5.0.69
 #ifndef _C_CkFtp2WH
 #define _C_CkFtp2WH
 #include "chilkatDefs.h"
@@ -116,6 +116,8 @@ CK_VISIBLE_PUBLIC void  CkFtp2W_putIdleTimeoutMs(HCkFtp2W cHandle, int newVal);
 CK_VISIBLE_PUBLIC BOOL CkFtp2W_getIsConnected(HCkFtp2W cHandle);
 CK_VISIBLE_PUBLIC BOOL CkFtp2W_getKeepSessionLog(HCkFtp2W cHandle);
 CK_VISIBLE_PUBLIC void  CkFtp2W_putKeepSessionLog(HCkFtp2W cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC BOOL CkFtp2W_getLargeFileMeasures(HCkFtp2W cHandle);
+CK_VISIBLE_PUBLIC void  CkFtp2W_putLargeFileMeasures(HCkFtp2W cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkFtp2W_getLastErrorHtml(HCkFtp2W cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkFtp2W_lastErrorHtml(HCkFtp2W cHandle);
 CK_VISIBLE_PUBLIC void CkFtp2W_getLastErrorText(HCkFtp2W cHandle, HCkString retval);
@@ -306,6 +308,8 @@ CK_VISIBLE_PUBLIC const wchar_t *CkFtp2W_getFilename(HCkFtp2W cHandle, int index
 CK_VISIBLE_PUBLIC HCkTaskW CkFtp2W_GetFilenameAsync(HCkFtp2W cHandle, int index);
 CK_VISIBLE_PUBLIC BOOL CkFtp2W_GetFileSb(HCkFtp2W cHandle, const wchar_t *remoteFilePath, const wchar_t *charset, HCkStringBuilderW sb);
 CK_VISIBLE_PUBLIC HCkTaskW CkFtp2W_GetFileSbAsync(HCkFtp2W cHandle, const wchar_t *remoteFilePath, const wchar_t *charset, HCkStringBuilderW sb);
+CK_VISIBLE_PUBLIC BOOL CkFtp2W_GetFileToStream(HCkFtp2W cHandle, const wchar_t *remoteFilePath, HCkStreamW toStream);
+CK_VISIBLE_PUBLIC HCkTaskW CkFtp2W_GetFileToStreamAsync(HCkFtp2W cHandle, const wchar_t *remoteFilePath, HCkStreamW toStream);
 CK_VISIBLE_PUBLIC BOOL CkFtp2W_GetGroup(HCkFtp2W cHandle, int index, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkFtp2W_getGroup(HCkFtp2W cHandle, int index);
 CK_VISIBLE_PUBLIC HCkTaskW CkFtp2W_GetGroupAsync(HCkFtp2W cHandle, int index);

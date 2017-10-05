@@ -2,7 +2,7 @@
 //
 //////////////////////////////////////////////////////////////////////
 
-// This header is generated for Chilkat v9.5.0
+// This header is generated for Chilkat 9.5.0.69
 
 #ifndef _CkCrypt2_H
 #define _CkCrypt2_H
@@ -15,6 +15,8 @@
 class CkByteData;
 class CkCert;
 class CkTask;
+class CkBinData;
+class CkStringBuilder;
 class CkStream;
 class CkCertChain;
 class CkCsp;
@@ -82,6 +84,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// brute-force attacks. (Any complaints about BCrypt "not being fast enough" will
 	// be ignored.)
 	// 
+	// This property must have a value ranging from 4 to 31 inclusive.
+	// 
 	// The default value is 10.
 	// 
 	int get_BCryptWorkFactor(void);
@@ -91,6 +95,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// this cost factor is to make the BCrypt computation expensive enought to prevent
 	// brute-force attacks. (Any complaints about BCrypt "not being fast enough" will
 	// be ignored.)
+	// 
+	// This property must have a value ranging from 4 to 31 inclusive.
 	// 
 	// The default value is 10.
 	// 
@@ -533,14 +539,20 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// 
 	void put_CipherMode(const char *newVal);
 
-	// Selects the compression algorithm to be used for the various compress and
-	// inflate methods. Currently, the only valid setting is "BZIP2".
+	// This property is deprecated. The only possible value is "BZIP2". The compression
+	// functionality in Crypt2 is legacy and existed long before the general
+	// compression functionality that is currently offered in Chilkat.Compression. The
+	// Chilkat.Compression API should be used instead.
 	void get_CompressionAlgorithm(CkString &str);
-	// Selects the compression algorithm to be used for the various compress and
-	// inflate methods. Currently, the only valid setting is "BZIP2".
+	// This property is deprecated. The only possible value is "BZIP2". The compression
+	// functionality in Crypt2 is legacy and existed long before the general
+	// compression functionality that is currently offered in Chilkat.Compression. The
+	// Chilkat.Compression API should be used instead.
 	const char *compressionAlgorithm(void);
-	// Selects the compression algorithm to be used for the various compress and
-	// inflate methods. Currently, the only valid setting is "BZIP2".
+	// This property is deprecated. The only possible value is "BZIP2". The compression
+	// functionality in Crypt2 is legacy and existed long before the general
+	// compression functionality that is currently offered in Chilkat.Compression. The
+	// Chilkat.Compression API should be used instead.
 	void put_CompressionAlgorithm(const char *newVal);
 
 	// Selects the encryption algorithm for encrypting and decrypting. Possible values
@@ -725,6 +737,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
 	// 
+	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
+	// and KeyLength.
+	//     The HavalRounds may have values of 3, 4, or 5.
+	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
+	// 
 	void get_HashAlgorithm(CkString &str);
 	// Selects the hash algorithm used by methods that create hashes. The valid choices
 	// are "sha1", "sha256", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
@@ -734,6 +751,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
 	// 
+	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
+	// and KeyLength.
+	//     The HavalRounds may have values of 3, 4, or 5.
+	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
+	// 
 	const char *hashAlgorithm(void);
 	// Selects the hash algorithm used by methods that create hashes. The valid choices
 	// are "sha1", "sha256", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
@@ -742,6 +764,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Note: SHA-2 designates a set of cryptographic hash functions that includes
 	// SHA-256, SHA-384, and SHA-512. Chilkat by definition supports "SHA-2" because it
 	// supports these algorithms.
+	// 
+	// Note: The HAVAL hash algorithm is affected by two other properties: HavalRounds
+	// and KeyLength.
+	//     The HavalRounds may have values of 3, 4, or 5.
+	//     The KeyLength may have values of 128, 160, 192, 224, or 256.
 	// 
 	void put_HashAlgorithm(const char *newVal);
 
@@ -842,6 +869,28 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// number of signer certificates. Each signing certificate can be retrieved by
 	// calling the GetSignerCert method, passing an index from 0 to NumSignerCerts-1.
 	int get_NumSignerCerts(void);
+
+	// Selects the hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512",
+	void get_OaepHash(CkString &str);
+	// Selects the hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512",
+	const char *oaepHash(void);
+	// Selects the hash algorithm for use within OAEP padding when encrypting using
+	// "pki" with RSAES-OAEP. The valid choices are "sha1", "sha256", "sha384",
+	// "sha512",
+	void put_OaepHash(const char *newVal);
+
+	// Selects the RSA encryption scheme when encrypting using "pki" (with a
+	// certificate and private key). The default value is false, which selects
+	// RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is used.
+	bool get_OaepPadding(void);
+	// Selects the RSA encryption scheme when encrypting using "pki" (with a
+	// certificate and private key). The default value is false, which selects
+	// RSAES_PKCS1-V1_5. If set to true, then RSAES_OAEP is used.
+	void put_OaepPadding(bool newVal);
 
 	// The padding scheme used by block encryption algorithms such as AES (Rijndael),
 	// Blowfish, Twofish, RC2, DES, 3DES, etc. Block encryption algorithms pad
@@ -986,6 +1035,34 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// KeyLength/8.
 	void put_SecretKey(const CkByteData &inBytes);
 
+	// This property selects the signature algorithm for the OpaqueSign*, Sign*, and
+	// CreateDetachedSignature, CreateP7M, and CreateP7S methods. The default value is
+	// "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply "pss") to use the
+	// RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when the private key is an RSA private key. It
+	// does not apply for ECC or DSA private keys.
+	// 
+	void get_SigningAlg(CkString &str);
+	// This property selects the signature algorithm for the OpaqueSign*, Sign*, and
+	// CreateDetachedSignature, CreateP7M, and CreateP7S methods. The default value is
+	// "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply "pss") to use the
+	// RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when the private key is an RSA private key. It
+	// does not apply for ECC or DSA private keys.
+	// 
+	const char *signingAlg(void);
+	// This property selects the signature algorithm for the OpaqueSign*, Sign*, and
+	// CreateDetachedSignature, CreateP7M, and CreateP7S methods. The default value is
+	// "PKCS1-v1_5". This can be set to "RSASSA-PSS" (or simply "pss") to use the
+	// RSASSA-PSS signature scheme.
+	// 
+	// Note: This property only applies when the private key is an RSA private key. It
+	// does not apply for ECC or DSA private keys.
+	// 
+	void put_SigningAlg(const char *newVal);
+
 	// When UU encoding, this is the filename to be embedded in UU encoded output. The
 	// default is "file.dat". When UU decoding, this is the filename found in the UU
 	// encoded input.
@@ -1019,7 +1096,7 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// ----------------------
 	// Adds a certificate to be used for public-key encryption. (To use public-key
 	// encryption with digital certificates, set the CryptAlgorithm property = "pki".)
-	// To encrypt with more than one certificate, call AddEncryptCert once per
+	// To encrypt with more than one certificate , call AddEncryptCert once per
 	// certificate.
 	void AddEncryptCert(CkCert &cert);
 
@@ -1045,6 +1122,82 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// 
 	bool AddPfxSourceFile(const char *pfxFilePath, const char *pfxPassword);
 
+
+	// Implements the AES Key Wrap Algorithm (RFC 3394) for unwrapping. The kek is the
+	// Key Encryption Key (the AES key used to unwrap the wrappedKeyData). The arguments and
+	// return value are binary encoded strings using the encoding specified by encoding
+	// (which can be "base64", "hex", "base64url", etc.) The full list of supported
+	// encodings is available at the link below.
+	// 
+	// The kek should be an AES key of 16 bytes, 24 bytes, or 32 bytes (i.e. 128-bits,
+	// 192- bits, or 256-bits). For example, if passed as a hex string, then the kek
+	// should be 32 chars in length, 48 chars, or 64 chars (because each byte is
+	// represented as 2 chars in hex).
+	// 
+	// The wrappedKeyData contains the data to be unwrapped. The result, if decoded, is 8 bytes
+	// less than the wrapped key data. For example, if a 256-bit AES key (32 bytes) is
+	// wrapped, the size of the wrapped key data is 40 bytes. Unwrapping restores it to
+	// the original 32 bytes.
+	// 
+	bool AesKeyUnwrap(const char *kek, const char *wrappedKeyData, const char *encoding, CkString &outStr);
+
+	// Implements the AES Key Wrap Algorithm (RFC 3394) for unwrapping. The kek is the
+	// Key Encryption Key (the AES key used to unwrap the wrappedKeyData). The arguments and
+	// return value are binary encoded strings using the encoding specified by encoding
+	// (which can be "base64", "hex", "base64url", etc.) The full list of supported
+	// encodings is available at the link below.
+	// 
+	// The kek should be an AES key of 16 bytes, 24 bytes, or 32 bytes (i.e. 128-bits,
+	// 192- bits, or 256-bits). For example, if passed as a hex string, then the kek
+	// should be 32 chars in length, 48 chars, or 64 chars (because each byte is
+	// represented as 2 chars in hex).
+	// 
+	// The wrappedKeyData contains the data to be unwrapped. The result, if decoded, is 8 bytes
+	// less than the wrapped key data. For example, if a 256-bit AES key (32 bytes) is
+	// wrapped, the size of the wrapped key data is 40 bytes. Unwrapping restores it to
+	// the original 32 bytes.
+	// 
+	const char *aesKeyUnwrap(const char *kek, const char *wrappedKeyData, const char *encoding);
+
+	// Implements the AES Key Wrap Algorithm (RFC 3394). The kek is the Key Encryption
+	// Key (the AES key used to encrypt the keyData). The arguments and return value are
+	// binary encoded strings using the encoding specified by encoding (which can be
+	// "base64", "hex", "base64url", etc.) The full list of supported encodings is
+	// available at the link below.
+	// 
+	// The kek should be an AES key of 16 bytes, 24 bytes, or 32 bytes (i.e. 128-bits,
+	// 192- bits, or 256-bits). For example, if passed as a hex string, then the kek
+	// should be 32 chars in length, 48 chars, or 64 chars (because each byte is
+	// represented as 2 chars in hex).
+	// 
+	// The keyData contains the data to be key wrapped. It must be a multiple of 64-bits
+	// in length. In other words, if the keyData is decoded to binary, it should be a
+	// number of bytes that is a multiple of 8.
+	// 
+	// The return string, if decoded to binary bytes, is equal to the size of the key
+	// data + 8 additional bytes.
+	// 
+	bool AesKeyWrap(const char *kek, const char *keyData, const char *encoding, CkString &outStr);
+
+	// Implements the AES Key Wrap Algorithm (RFC 3394). The kek is the Key Encryption
+	// Key (the AES key used to encrypt the keyData). The arguments and return value are
+	// binary encoded strings using the encoding specified by encoding (which can be
+	// "base64", "hex", "base64url", etc.) The full list of supported encodings is
+	// available at the link below.
+	// 
+	// The kek should be an AES key of 16 bytes, 24 bytes, or 32 bytes (i.e. 128-bits,
+	// 192- bits, or 256-bits). For example, if passed as a hex string, then the kek
+	// should be 32 chars in length, 48 chars, or 64 chars (because each byte is
+	// represented as 2 chars in hex).
+	// 
+	// The keyData contains the data to be key wrapped. It must be a multiple of 64-bits
+	// in length. In other words, if the keyData is decoded to binary, it should be a
+	// number of bytes that is a multiple of 8.
+	// 
+	// The return string, if decoded to binary bytes, is equal to the size of the key
+	// data + 8 additional bytes.
+	// 
+	const char *aesKeyWrap(const char *kek, const char *keyData, const char *encoding);
 
 	// Computes and returns a bcrypt hash of the password. The number of rounds of hashing
 	// is determined by the BCryptWorkFactor property.
@@ -1095,66 +1248,45 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	void ClearEncryptCerts(void);
 
 
-	// Memory-to-memory compression. Compresses a byte array and returns a byte array
-	// of compressed data. The compression algorithm specified by the
-	// CompressionAlgorithm property is used. Currently, the only choice is "BZIP2".
+	// Bzip2 compresses a byte array and returns the compressed bytes.
+	// 
+	// This is a legacy method that should not be used in new development. It will not
+	// be marked as deprecated or removed from future APIs because existing
+	// applications may have data already compressed using this method.
+	// 
+	// The output of this method includes an 8-byte header composed of a 4-byte magic
+	// number (0xB394A7E1) and the 4-byte length of the uncompressed data.
+	// 
 	bool CompressBytes(CkByteData &data, CkByteData &outData);
 
 
-	// Same as CompressBytes, except an encoded string is returned. The encoding is
-	// controlled by the EncodingMode property, which can be set to "Base64", "QP" (for
-	// quoted-printable), or "Hex".
+	// Same as CompressBytes, except an encoded string is returned. The output encoding
+	// is specified by the EncodingMode property.
 	bool CompressBytesENC(CkByteData &data, CkString &outStr);
 
-	// Same as CompressBytes, except an encoded string is returned. The encoding is
-	// controlled by the EncodingMode property, which can be set to "Base64", "QP" (for
-	// quoted-printable), or "Hex".
+	// Same as CompressBytes, except an encoded string is returned. The output encoding
+	// is specified by the EncodingMode property.
 	const char *compressBytesENC(CkByteData &data);
 
-	// Compresses a string and returns a byte array of the compressed data. For
-	// languages such as C#, VB.NET, Visual Basic 6, etc. the string input argument is
-	// Unicode. The Charset property controls the conversion of the Unicode string to a
-	// multibyte string before compression is applied. For example, if Charset is set
-	// to "iso-8859-1", then the input string argument is first converted from Unicode
-	// (2 bytes per char) to iso-8859-1 (1 byte per char) before compressing according
-	// to the CompressionAlgorithm property ("BZIP2"). If the Charset property is set
-	// to "unicode", then no character encoding conversion will happen, and the full
-	// Unicode string is compressed.
+	// Compresses a string and returns the compressed bytes. Prior to compressing, the
+	// string is converted to a byte representation such as utf-8, utf-16, etc. as
+	// determined by the Charset property. Otherwise, this method is the same as the
+	// CompressBytes method.
 	bool CompressString(const char *str, CkByteData &outData);
 
 
-	// Compresses a string and returns an encoded string of the compressed data. For
-	// languages such as C#, VB.NET, Visual Basic 6, etc. the string input argument is
-	// Unicode. The Charset property controls the conversion of the Unicode string to a
-	// multibyte string before compression is applied. For example, if Charset is set
-	// to "iso-8859-1", then the input string argument is first converted from Unicode
-	// (2 bytes per char) to iso-8859-1 (1 byte per char) before compressing according
-	// to the CompressionAlgorithm property ("BZIP2"). If the Charset property is set
-	// to "unicode", then no character encoding conversion will happen, and the full
-	// Unicode string is compressed.
-	// 
-	// Compressed data is typically binary data which is not a printable string. This
-	// method encodes the output compressed data to a printable string according to the
-	// EncodingMode property, which can be set to "Base64", "QP" (for
-	// quoted-printable), or "Hex".
-	// 
+	// Compresses a string and returns the encoded compressed bytes. Prior to
+	// compressing, the string is converted to a byte representation such as utf-8,
+	// utf-16, etc. as determined by the Charset property. The output encoding is
+	// specified by the EncodingMode property. Otherwise, this method is the same as
+	// the CompressBytes method.
 	bool CompressStringENC(const char *str, CkString &outStr);
 
-	// Compresses a string and returns an encoded string of the compressed data. For
-	// languages such as C#, VB.NET, Visual Basic 6, etc. the string input argument is
-	// Unicode. The Charset property controls the conversion of the Unicode string to a
-	// multibyte string before compression is applied. For example, if Charset is set
-	// to "iso-8859-1", then the input string argument is first converted from Unicode
-	// (2 bytes per char) to iso-8859-1 (1 byte per char) before compressing according
-	// to the CompressionAlgorithm property ("BZIP2"). If the Charset property is set
-	// to "unicode", then no character encoding conversion will happen, and the full
-	// Unicode string is compressed.
-	// 
-	// Compressed data is typically binary data which is not a printable string. This
-	// method encodes the output compressed data to a printable string according to the
-	// EncodingMode property, which can be set to "Base64", "QP" (for
-	// quoted-printable), or "Hex".
-	// 
+	// Compresses a string and returns the encoded compressed bytes. Prior to
+	// compressing, the string is converted to a byte representation such as utf-8,
+	// utf-16, etc. as determined by the Charset property. The output encoding is
+	// specified by the EncodingMode property. Otherwise, this method is the same as
+	// the CompressBytes method.
 	const char *compressStringENC(const char *str);
 
 	// Calculates a CRC for in-memory byte data. To compute the CRC used in the Zip
@@ -1237,6 +1369,12 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "modBase64", or "html" (for HTML entity encoding).
 	const char *decodeString(const char *inStr, const char *charset, const char *encoding);
 
+	// In-place decrypts the contents of bd. The minimal set of properties that
+	// should be set before decrypting are: CryptAlgorithm, SecretKey. Other properties
+	// that control encryption are: CipherMode, PaddingScheme, KeyLength, IV.
+	bool DecryptBd(CkBinData &bd);
+
+
 	// Decrypts a byte array and returns the unencrypted byte array. The property
 	// settings used when encrypting the data must match the settings when decrypting.
 	// Specifically, the CryptAlgorithm, CipherMode, PaddingScheme, KeyLength, IV, and
@@ -1263,6 +1401,13 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// property setting. It then decrypts and re-encodes using the EncodingMode
 	// setting, and returns the decrypted data in encoded string form.
 	const char *decryptEncoded(const char *encodedEncryptedData);
+
+	// Decrypts the contents of bdIn to sbOut. The decrypted string is appended to sbOut.
+	// The minimal set of properties that should be set before ecrypting are:
+	// CryptAlgorithm, SecretKey. Other properties that control encryption are:
+	// CipherMode, PaddingScheme, KeyLength, IV.
+	bool DecryptSb(CkBinData &bdIn, CkStringBuilder &sbOut);
+
 
 	// Decrypts a stream. Internally, the strm's source is read, decrypted, and the
 	// decrypted data written to the strm's sink. It does this in streaming fashion.
@@ -1365,6 +1510,14 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "410042004300".
 	const char *encodeString(const char *strToEncode, const char *charsetName, const char *toEncodingName);
 
+	// In-place encrypts the contents of bd. The minimal set of properties that
+	// should be set before encrypting are: CryptAlgorithm, SecretKey. Other properties
+	// that control encryption are: CipherMode, PaddingScheme, KeyLength, IV. When
+	// decrypting, all property settings must match otherwise the result is garbled
+	// data.
+	bool EncryptBd(CkBinData &bd);
+
+
 	// Encrypts a byte array. The minimal set of properties that should be set before
 	// encrypting are: CryptAlgorithm, SecretKey. Other properties that control
 	// encryption are: CipherMode, PaddingScheme, KeyLength, IV. When decrypting, all
@@ -1401,6 +1554,12 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// according to the encryption algorithm specified by CryptAlgorithm. The resulting
 	// encrypted data is encoded (using EncodingMode) and returned.
 	const char *encryptEncoded(const char *str);
+
+	// Encrypts the contents of sbIn to bdOut. The minimal set of properties that should
+	// be set before ecrypting are: CryptAlgorithm, SecretKey. Other properties that
+	// control encryption are: CipherMode, PaddingScheme, KeyLength, IV.
+	bool EncryptSb(CkStringBuilder &sbIn, CkBinData &bdOut);
+
 
 	// Encrypts a stream. Internally, the strm's source is read, encrypted, and the
 	// encrypted data written to the strm's sink. It does this in streaming fashion.
@@ -1585,10 +1744,16 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 
 	// Generates a random UUID string having standard UUID format, such as
 	// "de305d54-75b4-431b-adb2-eb6b9e546014".
+	// 
+	// Note: This generates a "version 4 UUID" using random byte values. See RFC 4122.
+	// 
 	bool GenerateUuid(CkString &outStr);
 
 	// Generates a random UUID string having standard UUID format, such as
 	// "de305d54-75b4-431b-adb2-eb6b9e546014".
+	// 
+	// Note: This generates a "version 4 UUID" using random byte values. See RFC 4122.
+	// 
 	const char *generateUuid(void);
 
 	// Generates numBytes random bytes and returns them as an encoded string. The encoding,
@@ -1758,6 +1923,24 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	CkCertChain *GetSignerCertChain(int index);
 
 
+	// Hashes the the bytes contained in bd and returns the hash as an encoded
+	// string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
+	bool HashBdENC(CkBinData &bd, CkString &outStr);
+
+	// Hashes the the bytes contained in bd and returns the hash as an encoded
+	// string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
+	const char *hashBdENC(CkBinData &bd);
+
 	// Begin hashing a byte stream. Call this method to hash the 1st chunk. Additional
 	// chunks are hashed by calling HashMoreBytes 0 or more times followed by a final
 	// call to HashFinal (or HashFinalENC) to retrieve the result. The hash algorithm
@@ -1772,74 +1955,80 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	bool HashBeginString(const char *strData);
 
 
-	// Hashes a byte array. The hash algorithm to be used is controlled by the
-	// HashAlgorithm property, which can be set to "sha1", "sha384", "sha512", "md2",
-	// "md5", "haval", "ripemd128", "ripemd160","ripemd256", or "ripemd320".
+	// Hashes a byte array.
 	// 
-	// The HAVAL hash algorithm is affected by two other properties: HavalRounds and
-	// KeyLength. The HavalRounds may have values of 3, 4, or 5. The KeyLength may have
-	// values of 128, 160, 192, 224, or 256.
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
 	// 
 	bool HashBytes(CkByteData &data, CkByteData &outData);
 
 
-	// Hashes a byte array and returns an encoded (printable) string of the binary
-	// hash. The hash algorithm to be used is controlled by the HashAlgorithm property,
-	// which can be set to "sha1", "sha384", "sha512", "md2", "md5", or "haval". The
-	// encoding is controlled by the EncodingMode property, which can be set to
-	// "Base64", "QP", or "Hex".
+	// Hashes a byte array and returns the hash as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
 	bool HashBytesENC(CkByteData &data, CkString &outStr);
 
-	// Hashes a byte array and returns an encoded (printable) string of the binary
-	// hash. The hash algorithm to be used is controlled by the HashAlgorithm property,
-	// which can be set to "sha1", "sha384", "sha512", "md2", "md5", or "haval". The
-	// encoding is controlled by the EncodingMode property, which can be set to
-	// "Base64", "QP", or "Hex".
+	// Hashes a byte array and returns the hash as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
 	const char *hashBytesENC(CkByteData &data);
 
-	// Hashes a file. The hash algorithm to be used is controlled by the HashAlgorithm
-	// property, which can be set to "sha1", "sha384", "sha512", "md2", "md5", "haval",
-	// "ripemd128", "ripemd160","ripemd256", or "ripemd320". The function returns the
-	// hash bytes. Any size file is supported because the file is hashed internally in
-	// streaming mode.
+	// Hashes a file and returns the hash bytes.
 	// 
-	// The HAVAL hash algorithm is affected by two other properties: HavalRounds and
-	// KeyLength. The HavalRounds may have values of 3, 4, or 5. The KeyLength may have
-	// values of 128, 160, 192, 224, or 256.
+	// The hash algorithm is specified by the HashAlgorithm property,
+	// 
+	// Any size file may be hashed because the file is hashed internally in streaming
+	// mode (keeping memory usage low and constant).
 	// 
 	bool HashFile(const char *path, CkByteData &outBytes);
 
-	// Hashes a file. The hash algorithm to be used is controlled by the HashAlgorithm
-	// property, which can be set to "sha1", "sha384", "sha512", "md2", "md5", "haval",
-	// "ripemd128", "ripemd160","ripemd256", or "ripemd320". The function returns the
-	// hash bytes. Any size file is supported because the file is hashed internally in
-	// streaming mode.
+	// Hashes a file and returns the hash bytes.
 	// 
-	// The HAVAL hash algorithm is affected by two other properties: HavalRounds and
-	// KeyLength. The HavalRounds may have values of 3, 4, or 5. The KeyLength may have
-	// values of 128, 160, 192, 224, or 256.
+	// The hash algorithm is specified by the HashAlgorithm property,
+	// 
+	// Any size file may be hashed because the file is hashed internally in streaming
+	// mode (keeping memory usage low and constant).
 	// 
 	CkTask *HashFileAsync(const char *path);
 
 
-	// Hashes a file. The hash algorithm to be used is controlled by the HashAlgorithm
-	// property, which can be set to "sha1", "sha384", "sha512", "md2", "md5", or
-	// "haval". The function returns the hash as a string encoded according to the
-	// EncodingMode property. Any size file is supported because the file is hashed
-	// internally in streaming mode.
+	// Hashes a file and returns the hash as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
+	// Any size file is supported because the file is hashed internally in streaming
+	// mode (keeping memory usage low and constant).
+	// 
 	bool HashFileENC(const char *path, CkString &outStr);
 
-	// Hashes a file. The hash algorithm to be used is controlled by the HashAlgorithm
-	// property, which can be set to "sha1", "sha384", "sha512", "md2", "md5", or
-	// "haval". The function returns the hash as a string encoded according to the
-	// EncodingMode property. Any size file is supported because the file is hashed
-	// internally in streaming mode.
+	// Hashes a file and returns the hash as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
+	// Any size file is supported because the file is hashed internally in streaming
+	// mode (keeping memory usage low and constant).
+	// 
 	const char *hashFileENC(const char *path);
-	// Hashes a file. The hash algorithm to be used is controlled by the HashAlgorithm
-	// property, which can be set to "sha1", "sha384", "sha512", "md2", "md5", or
-	// "haval". The function returns the hash as a string encoded according to the
-	// EncodingMode property. Any size file is supported because the file is hashed
-	// internally in streaming mode.
+	// Hashes a file and returns the hash as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
+	// 
+	// Any size file is supported because the file is hashed internally in streaming
+	// mode (keeping memory usage low and constant).
+	// 
 	CkTask *HashFileENCAsync(const char *path);
 
 
@@ -1863,10 +2052,8 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	bool HashMoreString(const char *strData);
 
 
-	// Hashes a string and returns a binary hash. The hash algorithm to be used is
-	// controlled by the HashAlgorithm property, which can be set to "sha1", "sha384",
-	// "sha512", "md2", "md5", "haval", "ripemd128", "ripemd160","ripemd256", or
-	// "ripemd320".
+	// Hashes a string and returns a binary hash. The hash algorithm is specified by
+	// the HashAlgorithm property,
 	// 
 	// The Charset property controls the character encoding of the string that is
 	// hashed. Languages such as VB.NET, C#, and Visual Basic work with Unicode
@@ -1887,10 +2074,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	bool HashString(const char *str, CkByteData &outData);
 
 
-	// Hashes a string and returns an encoded (printable) string of the binary hash.
-	// The hash algorithm to be used is controlled by the HashAlgorithm property, which
-	// can be set to "sha1", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
-	// "ripemd160","ripemd256", or "ripemd320".
+	// Hashes a string and returns the hash bytes as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
 	// 
 	// The Charset property controls the character encoding of the string that is
 	// hashed. Languages such as VB.NET, C#, and Visual Basic work with Unicode
@@ -1900,19 +2088,14 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Charset is set to "iso-8859-1", the input string is first implicitly converted
 	// to iso-8859-1 (1 byte per character) before hashing. The full list of supported
 	// charsets is listed in the EncryptString method description.
-	// The encoding of the output string is controlled by the EncodingMode property,
-	// which can be set to "Base64", "QP", or "Hex".
-	// 
-	// The HAVAL hash algorithm is affected by two other properties: HavalRounds and
-	// KeyLength. The HavalRounds may have values of 3, 4, or 5. The KeyLength may have
-	// values of 128, 160, 192, 224, or 256.
 	// 
 	bool HashStringENC(const char *str, CkString &outStr);
 
-	// Hashes a string and returns an encoded (printable) string of the binary hash.
-	// The hash algorithm to be used is controlled by the HashAlgorithm property, which
-	// can be set to "sha1", "sha384", "sha512", "md2", "md5", "haval", "ripemd128",
-	// "ripemd160","ripemd256", or "ripemd320".
+	// Hashes a string and returns the hash bytes as an encoded string.
+	// 
+	// The hash algorithm is specified by the HashAlgorithm property, The encoding is
+	// controlled by the EncodingMode property, which can be set to "base64", "hex",
+	// "base64url", or any of the encodings listed at the link below.
 	// 
 	// The Charset property controls the character encoding of the string that is
 	// hashed. Languages such as VB.NET, C#, and Visual Basic work with Unicode
@@ -1922,12 +2105,6 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Charset is set to "iso-8859-1", the input string is first implicitly converted
 	// to iso-8859-1 (1 byte per character) before hashing. The full list of supported
 	// charsets is listed in the EncryptString method description.
-	// The encoding of the output string is controlled by the EncodingMode property,
-	// which can be set to "Base64", "QP", or "Hex".
-	// 
-	// The HAVAL hash algorithm is affected by two other properties: HavalRounds and
-	// KeyLength. The HavalRounds may have values of 3, 4, or 5. The KeyLength may have
-	// values of 128, 160, 192, 224, or 256.
 	// 
 	const char *hashStringENC(const char *str);
 
@@ -2030,7 +2207,15 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// 
 	const char *hmacStringENC(const char *inText);
 
-	// The opposite of CompressBytes.
+	// Decompresses data that was compressed with CompressBytes.
+	// 
+	// This is a legacy method that should not be used in new development. It will not
+	// be marked as deprecated or removed from future APIs because existing
+	// applications may have data already compressed using CompressBytes.
+	// 
+	// This method expects the input to begin with an 8-byte header composed of a
+	// 4-byte magic number (0xB394A7E1) and the 4-byte length of the uncompressed data.
+	// 
 	bool InflateBytes(CkByteData &data, CkByteData &outData);
 
 
@@ -2058,6 +2243,18 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// Returns true if the component is unlocked.
 	bool IsUnlocked(void);
 
+
+	// Computes a Message Authentication Code on the bytes contained in bd, using the
+	// MAC algorithm specified in the MacAlgorithm property. The result is encoded to a
+	// string using the encoding (base64, hex, etc.) specified by the EncodingMode
+	// property.
+	bool MacBdENC(CkBinData &bd, CkString &outStr);
+
+	// Computes a Message Authentication Code on the bytes contained in bd, using the
+	// MAC algorithm specified in the MacAlgorithm property. The result is encoded to a
+	// string using the encoding (base64, hex, etc.) specified by the EncodingMode
+	// property.
+	const char *macBdENC(CkBinData &bd);
 
 	// Computes a Message Authentication Code using the MAC algorithm specified in the
 	// MacAlgorithm property.
@@ -2106,6 +2303,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// of the encrypted data. The equivalent call in MySQL would look like this:
 	// HEX(AES_ENCRYPT('The quick brown fox jumps over the lazy dog','password'))
 	const char *mySqlAesEncrypt(const char *strData, const char *strPassword);
+
+	// In-place signs the contents of bd. The contents of bd is replaced with the
+	// PKCS7/CMS format signature that embeds the data that was signed.
+	bool OpaqueSignBd(CkBinData &bd);
+
 
 	// Digitally signs a byte array and returns a PKCS7/CMS format signature. This is a
 	// signature that contains both the original data as well as the signature. A
@@ -2173,6 +2375,13 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// "QP","Hex", etc. (See the EncodingMode property.)
 	// 
 	const char *opaqueSignStringENC(const char *str);
+
+	// In-place verifies and unwraps the PKCS7/CMS contents of bd. If the signature
+	// is verified, the contents of bd will be replaced with the original data, and
+	// the method returns true. If the signature is not verified, then the contents
+	// of bd remain unchanged and the method returns false.
+	bool OpaqueVerifyBd(CkBinData &bd);
+
 
 	// Verifies an opaque signature and returns the original data. If the signature
 	// verification fails, the returned data will be 0 bytes in length.
@@ -2460,6 +2669,15 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// be used if you are using Chilkat for both encryption and decryption because the
 	// password-to-secret-key algorithm would need to be identical for the decryption
 	// to match the encryption.
+	// 
+	// There is no minimum or maximum password length. The password string is
+	// transformed to a binary secret key by computing the MD5 digest (of the utf-8
+	// password) to obtain 16 bytes. If the KeyLength is greater than 16 bytes, then
+	// the MD5 digest of the Base64 encoding of the utf-8 password is added. A max of
+	// 32 bytes of key material is generated, and this is truncated to the actual
+	// KeyLength required. The example below shows how to manually duplicate the
+	// computation.
+	// 
 	void SetSecretKeyViaPassword(const char *password);
 
 
@@ -2481,6 +2699,14 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	bool SetVerifyCert(CkCert &cert);
 
 
+	// Digitally signs the contents of dataToSign and returns the detached digital signature
+	// in an encoded string (according to the EncodingMode property setting).
+	bool SignBdENC(CkBinData &dataToSign, CkString &outStr);
+
+	// Digitally signs the contents of dataToSign and returns the detached digital signature
+	// in an encoded string (according to the EncodingMode property setting).
+	const char *signBdENC(CkBinData &dataToSign);
+
 	// Digitally signs a byte array and returns the detached digital signature. A
 	// certificate must be set by calling SetSigningCert prior to calling this method.
 	bool SignBytes(CkByteData &data, CkByteData &outData);
@@ -2497,6 +2723,14 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// to calling this method. The EncodingMode property controls the output encoding,
 	// which can be "Base64", "QP", or "Hex".
 	const char *signBytesENC(CkByteData &data);
+
+	// Digitally signs a the contents of sb and returns the PKCS7 detached digital
+	// signature as an encoded string according to the EncodingMode property setting.
+	bool SignSbENC(CkStringBuilder &sb, CkString &outStr);
+
+	// Digitally signs a the contents of sb and returns the PKCS7 detached digital
+	// signature as an encoded string according to the EncodingMode property setting.
+	const char *signSbENC(CkStringBuilder &sb);
 
 	// Digitally signs a string and returns the detached digital signature. A
 	// certificate must be set by calling SetSigningCert prior to calling this method.
@@ -2567,6 +2801,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	bool UseCertVault(CkXmlCertVault &vault);
 
 
+	// Verifies a digital signature against the original data contained in data.
+	// Returns true if the signature is verified.
+	bool VerifyBdENC(CkBinData &data, const char *encodedSig);
+
+
 	// Verifies a byte array against a digital signature and returns true if the byte
 	// array is unaltered.
 	bool VerifyBytes(CkByteData &data, CkByteData &sig);
@@ -2596,6 +2835,11 @@ class CK_VISIBLE_PUBLIC CkCrypt2  : public CkClassWithCallbacks
 	// it). If the inFilename has not been modified, the return value is true, otherwise it
 	// is false.
 	bool VerifyP7S(const char *inFilename, const char *p7sFilename);
+
+
+	// Verifies a digital signature against the original data contained in sb.
+	// Returns true if the signature is verified.
+	bool VerifySbENC(CkStringBuilder &sb, const char *encodedSig);
 
 
 	// Verifies a string against a binary digital signature and returns true if the

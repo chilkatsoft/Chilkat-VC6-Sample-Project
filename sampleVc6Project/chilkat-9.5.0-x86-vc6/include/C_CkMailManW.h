@@ -1,4 +1,4 @@
-// This is a generated source file for Chilkat version 9.5.0.65
+// This is a generated source file for Chilkat version 9.5.0.69
 #ifndef _C_CkMailManWH
 #define _C_CkMailManWH
 #include "chilkatDefs.h"
@@ -84,8 +84,10 @@ CK_VISIBLE_PUBLIC void CkMailManW_getLastErrorXml(HCkMailManW cHandle, HCkString
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_lastErrorXml(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_getLastMethodSuccess(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC void  CkMailManW_putLastMethodSuccess(HCkMailManW cHandle, BOOL newVal);
+#if defined(CK_SMTPQ_INCLUDED)
 CK_VISIBLE_PUBLIC void CkMailManW_getLastSendQFilename(HCkMailManW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_lastSendQFilename(HCkMailManW cHandle);
+#endif
 CK_VISIBLE_PUBLIC int CkMailManW_getLastSmtpStatus(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC void CkMailManW_getLogMailReceivedFilename(HCkMailManW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC void  CkMailManW_putLogMailReceivedFilename(HCkMailManW cHandle, const wchar_t *newVal);
@@ -200,6 +202,8 @@ CK_VISIBLE_PUBLIC void  CkMailManW_putSslProtocol(HCkMailManW cHandle, const wch
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_sslProtocol(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_getStartTLS(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC void  CkMailManW_putStartTLS(HCkMailManW cHandle, BOOL newVal);
+CK_VISIBLE_PUBLIC BOOL CkMailManW_getStartTLSifPossible(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC void  CkMailManW_putStartTLSifPossible(HCkMailManW cHandle, BOOL newVal);
 CK_VISIBLE_PUBLIC void CkMailManW_getTlsCipherSuite(HCkMailManW cHandle, HCkString retval);
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_tlsCipherSuite(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC void CkMailManW_getTlsPinSet(HCkMailManW cHandle, HCkString retval);
@@ -276,6 +280,7 @@ CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_GetUidlsAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_IsSmtpDsnCapable(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_IsSmtpDsnCapableAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_IsUnlocked(HCkMailManW cHandle);
+CK_VISIBLE_PUBLIC HCkJsonObjectW CkMailManW_LastJsonData(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkEmailW CkMailManW_LoadEml(HCkMailManW cHandle, const wchar_t *emlFilename);
 CK_VISIBLE_PUBLIC HCkEmailBundleW CkMailManW_LoadMbx(HCkMailManW cHandle, const wchar_t *mbxFileName);
 CK_VISIBLE_PUBLIC HCkEmailW CkMailManW_LoadMime(HCkMailManW cHandle, const wchar_t *mimeText);
@@ -363,10 +368,10 @@ CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SmtpResetAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_SmtpSendRawCommand(HCkMailManW cHandle, const wchar_t *command, const wchar_t *charset, BOOL bEncodeBase64, HCkString outStr);
 CK_VISIBLE_PUBLIC const wchar_t *CkMailManW_smtpSendRawCommand(HCkMailManW cHandle, const wchar_t *command, const wchar_t *charset, BOOL bEncodeBase64);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SmtpSendRawCommandAsync(HCkMailManW cHandle, const wchar_t *command, const wchar_t *charset, BOOL bEncodeBase64);
-CK_VISIBLE_PUBLIC BOOL CkMailManW_SshAuthenticatePk(HCkMailManW cHandle, const wchar_t *bSmtp, HCkSshKeyW sshUsername);
-CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SshAuthenticatePkAsync(HCkMailManW cHandle, const wchar_t *bSmtp, HCkSshKeyW sshUsername);
-CK_VISIBLE_PUBLIC BOOL CkMailManW_SshAuthenticatePw(HCkMailManW cHandle, const wchar_t *bSmtp, const wchar_t *sshLogin);
-CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SshAuthenticatePwAsync(HCkMailManW cHandle, const wchar_t *bSmtp, const wchar_t *sshLogin);
+CK_VISIBLE_PUBLIC BOOL CkMailManW_SshAuthenticatePk(HCkMailManW cHandle, const wchar_t *sshLogin, HCkSshKeyW sshUsername);
+CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SshAuthenticatePkAsync(HCkMailManW cHandle, const wchar_t *sshLogin, HCkSshKeyW sshUsername);
+CK_VISIBLE_PUBLIC BOOL CkMailManW_SshAuthenticatePw(HCkMailManW cHandle, const wchar_t *sshLogin, const wchar_t *sshPassword);
+CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SshAuthenticatePwAsync(HCkMailManW cHandle, const wchar_t *sshLogin, const wchar_t *sshPassword);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_SshCloseTunnel(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC HCkTaskW CkMailManW_SshCloseTunnelAsync(HCkMailManW cHandle);
 CK_VISIBLE_PUBLIC BOOL CkMailManW_SshOpenTunnel(HCkMailManW cHandle, const wchar_t *sshHostname, int sshPort);
